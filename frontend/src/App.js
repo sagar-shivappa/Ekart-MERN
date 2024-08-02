@@ -1,51 +1,64 @@
-import AddStudent from './Components/AddStudent';
-import StudentsData from './Components/StudentsData';
-import React, { Component } from 'react'
-import axios from 'axios';
-import { apiUrl } from './apiUrl'
+import Header from "./Components/Header";
+import { Route, Routes } from "react-router-dom";
+import Products from "./Components/Products";
+import Cart from "./Components/Cart";
 
-export class App extends Component {
-  constructor(props) {
-    super(props)
+import Login from "./Components/Login";
+import Messanger from "./Components/Messanger";
+import { useState } from "react";
 
-    this.state = {
-      students: [ ],
-    }
-  }
+export default function App() {
+  const [message, setMessage] = useState({ message: "", type: "" });
+  const [loginStatus, setLoginStatus] = useState(false);
+  const [authToken, setAuthToken] = useState("");
+  const [userInformation, setUserInformation] = useState({
+    user_name: "",
+    user_id: 0,
+  });
 
-  componentDidMount() {
-    axios.get(`${apiUrl}students`)
-      .then(response => this.setState({ students: response.data }))
-  }
+  return (
+    <>
+      {message.message ? (
+        <Messanger message={message} setMessage={setMessage} />
+      ) : (
+        <></>
+      )}
 
-  componentDidUpdate() {
-    axios.get(`${apiUrl}students`)
-      .then(response => this.setState({ students: response.data }))
-  }
-
-  addStudent = (studentDetails) => {
-    axios.post(`${apiUrl}student`, studentDetails)
-      .then(response => {
-        this.setState({ students: [...this.state.students, response.data] })
-      })
-  }
-  deleteStudent = (id) => {
-    axios.delete(`${apiUrl}student/${id}`)
-      .then(
-        response => {
-            this.setState({});
-        }
-      );
-  }
-
-  render() {
-    return (
-      <div className="App">
-        <AddStudent addStudent={this.addStudent} />
-        <StudentsData students={this.state.students} deleteStudent={this.deleteStudent}/>
-      </div>
-    )
-  }
+      <Header loginStatus={loginStatus} setLoginStatus={setLoginStatus} />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Login
+              setMessage={setMessage}
+              setLoginStatus={setLoginStatus}
+              setAuthToken={setAuthToken}
+              setUserInformation={setUserInformation}
+            />
+          }
+        ></Route>
+        <Route
+          path="products"
+          element={
+            <Products
+              authToken={authToken}
+              userInformation={userInformation}
+              setMessage={setMessage}
+            />
+          }
+        ></Route>
+        <Route
+          path="cart"
+          element={
+            <Cart
+              authToken={authToken}
+              userInformation={userInformation}
+              setMessage={setMessage}
+            />
+          }
+        ></Route>
+        <Route path="*" element={<Login />}></Route>
+      </Routes>
+    </>
+  );
 }
-
-export default App

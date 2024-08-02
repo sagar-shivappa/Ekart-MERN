@@ -10,7 +10,7 @@ const intializeDB = async () => {
     // Add all the available products to ekart portal
     const productsArray = [
       {
-        product_name: "Miko Shoe",
+        product_name: "Bhoomi's Knee cap",
         product_id: 123,
         product_description: "Sports Running Shoes",
         price: 456,
@@ -85,7 +85,7 @@ const intializeDB = async () => {
     // Add all the available products to ekart portal
     const usersArray = [
       {
-        user_name: "tester",
+        user_name: "sagar",
         password: "tester123",
         user_id: 1,
       },

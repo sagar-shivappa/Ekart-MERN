@@ -86,7 +86,10 @@ Note : We have already added 3 dummy users for the DB. Refer iniliazeDB to find 
 
 Response:
 {
-  user_name:"doSelect",
+  user_info:{
+    user_name:"doSelect",
+    user_id:121212
+  },
   token:"eyeennjnajnsja*******"﻿
 }
 ```
