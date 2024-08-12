@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../Style/Login.css";
+import "../style/Login.css";
 import { apiUrl } from "../apiUrl";
 import { useNavigate } from "react-router-dom";
 
@@ -60,7 +60,7 @@ export default function Login({
     <div className="login-container">
       <form className="login-form" onSubmit={handleSubmit}>
         <h2>Login</h2>
-        <div className="form-group">
+        <div data-testid="user-name" className="form-group">
           <label htmlFor="username">Username</label>
           <input
             type="text"
@@ -72,7 +72,7 @@ export default function Login({
             required
           />
         </div>
-        <div className="form-group">
+        <div data-testid="password" className="form-group">
           <label htmlFor="password">Password</label>
           <input
             type="password"
@@ -84,7 +84,9 @@ export default function Login({
             required
           />
         </div>
-        <button type="submit">Login</button>
+        <button data-testid="submit-Bn" type="submit">
+          Login
+        </button>
       </form>
     </div>
   );
